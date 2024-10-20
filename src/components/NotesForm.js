@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Container, Button,TextField } from "@mui/material"
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Heading from './Heading'
 
 // cerate new notes
@@ -22,10 +22,9 @@ function NotesForm(props) {
                 return note.id === params.id ? note : index+1;
             })
             setEdit(true)
-            console.log(editNotes)
             setNotesField(editNotes[0].note)
         }
-    },[params.id])
+    },[params.id,index,props.notes])
     
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -39,7 +38,7 @@ function NotesForm(props) {
         }
         console.log(props.notes)
         const editNotes = props.notes.length>0 && props.notes.filter((note)=>{
-            return note.note.title == notesField.title
+            return note.note.title === notesField.title
         })
         console.log(props.notes,editNotes)
         if(editNotes.length > 0){
